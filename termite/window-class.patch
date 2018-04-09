@@ -1,0 +1,12 @@
+diff --git a/termite.cc b/termite.cc
+index 160fe82..7187a24 100644
+--- a/termite.cc
++++ b/termite.cc
+@@ -1657,6 +1657,7 @@ int main(int argc, char **argv) {
+     }
+ 
+     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
++    gtk_style_context_add_class(gtk_widget_get_style_context(window),"termite-terminal");
+ 
+     GtkWidget *panel_overlay = gtk_overlay_new();
+     GtkWidget *hint_overlay = gtk_overlay_new();
