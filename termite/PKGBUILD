@@ -2,15 +2,15 @@
 # Contributor: Daniel Micay <danielmicay@gmail.com>
 
 pkgbase=termite
-pkgname=('termite-ndreas')
+pkgname=('termite-ndreas' 'termite-terminfo')
 pkgver=13
-pkgrel=2
+pkgrel=3
 pkgdesc="A simple VTE-based terminal"
 url="https://github.com/thestinger/termite/"
 license=('LGPL')
 arch=('x86_64')
 depends=('gtk3' 'pcre2' 'gnutls' 'vte-common')
-makedepends=('git' 'ncurses' 'intltool' 'gperf' 'gtk-doc' 'gobject-introspection')
+makedepends=('git' 'ncurses' 'intltool' 'gperf' 'gtk-doc')
 _vtever=0.50.2.a
 source=("git+https://github.com/thestinger/termite#tag=v$pkgver"
         "git+https://github.com/thestinger/vte-ng#tag=$_vtever"
@@ -61,4 +61,12 @@ package_termite-ndreas() {
   make -C vte-ng/po DESTDIR="$pkgdir" install-data
   make -C $pkgbase DESTDIR="$pkgdir" PREFIX=/usr install
   rm -r "$pkgdir/usr/share/terminfo"
+}
+
+package_termite-terminfo() {
+  pkgdesc='Terminfo for Termite, a simple VTE-based terminal'
+  depends=('ncurses')
+
+  mkdir -p "$pkgdir/usr/share/terminfo"
+  tic -x -o "$pkgdir/usr/share/terminfo" $pkgbase/termite.terminfo
 }
